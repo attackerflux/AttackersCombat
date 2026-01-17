@@ -1,0 +1,130 @@
+options:
+    COMBAT-TAG-DURATION: 15
+
+on damage:
+    if attacker is a player:
+        if victim is a player:
+            set {COMBAT.TAGGED::%attacker%} to {@COMBAT-TAG-DURATION}
+            set {COMBAT.TAGGED::%victim%} to {@COMBAT-TAG-DURATION}
+            send action bar "&Cɪɴ ᴄᴏᴍʙᴀᴛ ꜰᴏʀ {@COMBAT-TAG-DURATION}ꜱ" to attacker
+            send action bar "&Cɪɴ ᴄᴏᴍʙᴀᴛ ꜰᴏʀ {@COMBAT-TAG-DURATION}ꜱ" to victim
+
+            if {combat.notified::%attacker%} is not set:
+                send "&C ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ ɪɴ ᴄᴏᴍʙᴀᴛ!" to attacker
+                set {combat.notified::%attacker%} to true
+
+            if {combat.notified::%victim%} is not set:
+                send "&C ʏᴏᴜ ᴀʀᴇ ɴᴏᴡ ɪɴ ᴄᴏᴍʙᴀᴛ!" to victim
+                set {combat.notified::%victim%} to true
+
+every 1 second:
+    loop all players:
+        if {COMBAT.TAGGED::%loop-player%} is set:
+            subtract 1 from {COMBAT.TAGGED::%loop-player%}
+            send action bar "&C ɪɴ ᴄᴏᴍʙᴀᴛ ꜰᴏʀ %{COMBAT.TAGGED::%loop-player%}%ꜱ" to loop-player
+            if {COMBAT.TAGGED::%loop-player%} <= 0:
+                delete {COMBAT.TAGGED::%loop-player%}
+                delete {combat.notified::%loop-player%}
+                send "&Aʏᴏᴜ ᴀʀᴇ ɴᴏ ʟᴏɴɢᴇʀ ɪɴ ᴄᴏᴍʙᴀᴛ." to loop-player
+
+
+
+on quit:
+    if {COMBAT.TAGGED::%player%} is set:
+        broadcast "&4 %player% ᴛʀɪᴇᴅ ᴛᴏ ᴇꜱᴄᴀᴘᴇ ᴄᴏᴍʙᴀᴛ ᴀɴᴅ ᴅɪᴇᴅ!"
+        kill player
+
+on kick:
+    if {COMBAT.TAGGED::%player%} is set:
+        set {combat.safequit::%player%} to true
+
+on command:
+    if {COMBAT.TAGGED::%player%} is set:
+        if {_cmd} starts with "/spawn" or "/home" or "/tpa" or "/warp" or "/warps" or "/afk":
+            send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+            cancel event
+
+on command "/spawn":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/warps":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/warp rank1":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/warp rank2":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/warp rank3":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/ec":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+
+on command "/enderchest":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on command "/echest":
+    if {COMBAT.TAGGED::%player%} is set:
+        cancel event
+        send "&Cʏᴏᴜ ᴄᴀɴᴛ ʀᴜɴ ᴛʜɪꜱ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+
+
+
+
+
+
+
+on death:
+    delete {COMBAT.TAGGED::%victim%}
+    delete {COMBAT.TAGGED::%attacker%}
+    delete {combat.notified::%victim%}
+    delete {combat.notified::%attacker%}
+    wait 1 tick
+    if {COMBAT.TAGGED::%victim%} is set:
+        if {combat.safequit::%victim%} is not set:
+            broadcast "&4 %victim% ᴛʀɪᴇᴅ ᴛᴏ ᴇꜱᴄᴀᴘᴇ ᴄᴏᴍʙᴀᴛ ᴀɴᴅ ᴅɪᴇᴅ!"
+            kill victim
+        delete {combat.safequit::%victim%}
+
+on right click:
+    if clicked block is ender chest or shulker box:
+        if {COMBAT.TAGGED::%player%} is set:
+            cancel event
+            send "&cʏᴏᴜ ᴄᴀɴɴᴏᴛ ᴏᴘᴇɴ ᴛʜɪꜱ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+on region enter:
+    if event-region is "spawn":
+        if {COMBAT.TAGGED::%player%} is set:
+            cancel event
+            send "&Cʏᴏᴜ ᴄᴀɴ'ᴛ ᴇɴᴛᴇʀ ᴛʜᴇ ꜱᴘᴀᴡɴ ʀᴇɢɪᴏɴ ᴡʜɪʟᴇ ɪɴ ᴄᴏᴍʙᴀᴛ!" to player
+
+            wait 1 tick
+            set {_center} to location(-2977, 70, 322)
+
+            set {_x} to x-coordinate of player - x-coordinate of {_center}
+            set {_z} to z-coordinate of player - z-coordinate of {_center}
+            set {_length} to sqrt({_x}^2 + {_z}^2)
+
+            if {_length} > 0:
+                set {_knockX} to {_x} / {_length} * 1.5
+                set {_knockZ} to {_z} / {_length} * 1.5
+                set velocity of player to vector {_knockX}, 0.3, {_knockZ}
+
